@@ -1,24 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import { Outlet, Link } from "react-router-dom";
 import logo from './logo.svg';
 import './App.css';
 
-import { getTickets, createTicket } from './services/index';
+import { getTickets } from './services/index';
 
 function App() {
-  const [data, setData] = React.useState(null);
+  const [data, setData] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     getTickets()
       .then((res) => res.json())
       .then((data) => setData(data.message));
   }, []);
 
-  const clickHandler = () => {
-    createTicket()
-      .then((res) => res.json())
-      .then((data) => setData(data.message));
-  }
+
 
   return (
     <div className="App">
@@ -26,7 +23,6 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <>{!data ? "Loading..." : (
           <>
-            <button onClick={clickHandler}>Create Ticket</button>
             <div>{data}</div>
           </>
         )}</>

@@ -2,15 +2,20 @@ let tickets = [];
 let id = 0
 
 // tickets CRUD
-exports.createTicket = () => {
+exports.createTicket = ({uid, userName, email, description}) => {
     tickets = [
         ...tickets,
         {
             id: getUniqueId(),
-            status: 'new'
+            status: 'new',
+            uid,
+            userName,
+            email,
+            description
         }
     ];
-    return tickets;
+    console.log(`TIKCETS: ${JSON.stringify(tickets)}`)
+    return '200';
 };
 
 exports.getTickets = () => {

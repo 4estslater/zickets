@@ -1,10 +1,11 @@
 const path = require('path');
 const express = require('express');
+// const bodyParser = require('body-parser');
 const db = require('./database');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-
+app.use(express.json()) ; 
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 app.get('/api', (req, res) => {
@@ -12,26 +13,18 @@ app.get('/api', (req, res) => {
 });
 
 app.get('/tickets', async (req, res) => {
-  const options = {
-    id: req.id
-  }
-
   try {
-      const result = await db.getTickets(options);
-      res.json({ message: `Ticket Count: ${result.length}` });
+      const result = await db.getTickets();
+      res.send({ message: `Ticket Count: ${result.length}` });
   } catch (err) {
       console.error(err);
   }
 });
 
 app.post('/tickets', async (req, res) => {
-  const options = {
-    id: req.id
-  }
-
   try {
-    const result = await db.createTicket(options);
-    res.json({ message: `Ticket Created: ${result.length}` });
+    const response = await db.createTicket(req.body);
+    res.json({ code: response, message: 'Ticket Created'});
   } catch (err) {
       console.error(err);
   }
