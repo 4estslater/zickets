@@ -70,7 +70,7 @@ const Admin = () => {
         <p>{message}</p>
       </article>
       <aside className="ticket-list">
-        {!tickets ? "Loading..." : tickets.map((d, i) => ticketItem(d,i))}
+        {!tickets || !tickets.length ? <p className='warning'>No Tickets Created</p> : tickets.map((d, i) => ticketItem(d,i))}
       </aside>
     </>
   );

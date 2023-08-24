@@ -65,6 +65,10 @@ a:visited {
   text-align: left;
 }
 
+.ticket-list .warning{
+  margin-top: 20px;
+}
+
 .ticket-edit {
   text-align: left;
   width: 220px;
