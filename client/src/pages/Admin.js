@@ -20,28 +20,35 @@ const Admin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    updateTicket(currentTicket)
+    await updateTicket(currentTicket)
       .then((res) => res.json())
       .then((data) => {
         setMessage(data.message);
-        // resetForm();
-    });
+        setTimeout(() => {
+          setMessage('');
+        }, 2000);
+      });
+
+    await getTickets()
+      .then((res) => res.json())
+      .then((data) => setTickets(data.data));
   }
 
   const ticketItem = (d,i) => (
     <div key={i} className='ticket-item' onClick={() => handleClick(d)}>
-      <p>Name: {d.name}</p>
-      <p>Email: {d.email}</p>
-      <p>Description{d.description}</p>
+      <p>{new Date(d.updatedAt).toUTCString().slice(-12)}</p>
+      <p>{d.userName}</p>
+      <p>{d.status.toUpperCase()}</p>
     </div>
   );
 
   const ticketForm = () => (
     <form onSubmit={handleSubmit}>
-      <div>{currentTicket.name}</div>
-      <div>{currentTicket.email}</div>
-      <div>{currentTicket.description}</div>
+      <div>Name: {currentTicket.userName}</div>
+      <div>Email: {currentTicket.email}</div>
+      <div>Description: {currentTicket.description}</div>
       <div>
+        <span>Status: </span>
         <select id="lang" onChange={event => setCurrentTicket({...currentTicket, status: event.target.value})} value={currentTicket.status}>
           <option value="new">New</option>
           <option value="in progress">In Progress</option>
@@ -49,7 +56,8 @@ const Admin = () => {
         </select>
       </div>
       <div>
-        <input name="comment" onChange={event => setCurrentTicket({...currentTicket, comment: event.target.value})} value={currentTicket.comment} />
+        <span>Comment: </span>
+        <textarea name="comment" onChange={event => setCurrentTicket({...currentTicket, comment: event.target.value})} value={currentTicket.comment} />
       </div>
       <button>Update Ticket</button>
     </form>
@@ -57,8 +65,8 @@ const Admin = () => {
 
   return (  
     <>
-      <article>
-        {!currentTicket ? "No Ticket Selected" : ticketForm()}
+      <article className="ticket-edit">
+        {!currentTicket ? <p>No Ticket Selected</p>: ticketForm()}
         <p>{message}</p>
       </article>
       <aside className="ticket-list">

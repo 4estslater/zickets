@@ -30,23 +30,25 @@ const Client = () => {
       .then((res) => res.json())
       .then((data) => {
         setMessage(data.message);
+        setTimeout(() => {
+          setMessage('');
+        }, 2000);
         resetForm();
     });
   }
     
   return (
-    <>
+    <article className="client-page">
       <form onSubmit={handleSubmit}>
-        <label>
-          <input name="name" onChange={event => setName(event.target.value)} value={name} />
-          <input name="email" onChange={event => setEmail(event.target.value)} value={email} />
-          <input name="description" onChange={event => setDescription(event.target.value)} value={description} />
-        </label>
+        <label>New Ticket</label>
+        <input name="name" onChange={event => setName(event.target.value)} value={name} placeholder="name" />
+        <input name="email" onChange={event => setEmail(event.target.value)} value={email} placeholder="email" />
+        <input name="description" onChange={event => setDescription(event.target.value)} value={description} placeholder="description" />
         <button>Submit Ticket</button>
       </form>
       <p>{message}</p>
-    </>
+    </article>
   )
-  };
+};
   
   export default Client;

@@ -1,8 +1,99 @@
+ul {  
+  list-style-type: none;  
+  font-weight: bold;  
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  padding: 0px;
+  margin: 0px;
+  font-size: 15px;
+}
+
+a {
+  text-decoration: none;
+  color: darkgray;
+}
+
+a:visited { 
+  text-decoration: none; 
+  color: darkgray; 
+ }
+
+ a.selected {
+  text-decoration: underline;
+ }
+
+ form input {
+  display: block;
+  margin: 10px auto;
+ }
+
+ main {
+  display: flex;
+  justify-content: center;
+ }
+
 .app {
   text-align: center;
+  margin: 50px;
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-bar li {
+  display: inline-block;
+  margin: 0px 10px;
 }
 
 .ticket-item {
+  width: 120px;
+  height: 50px;
   background: pink;
-  width: 200px;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
 }
+
+.ticket-list {
+  text-align: left;
+}
+
+.ticket-edit {
+  text-align: left;
+  width: 220px;
+}
+
+.ticket-edit p {
+  margin-top: 20px;
+}
+
+.app form {
+  width: 200px;
+  background: lightgreen;
+  margin: 20px auto;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.app input {
+  border-radius: 5px;
+}
+
+.app label{
+  text-align: left;
+  width: 100%;
+  display: block;
+  font-size: 15px;
+  color: white;
+  font-weight: bold;
+}
+
+
+
