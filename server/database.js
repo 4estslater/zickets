@@ -8,13 +8,13 @@ exports.createTicket = ({uid, userName, email, description}) => {
         {
             id: getUniqueId(),
             status: 'new',
+            comment: '',
             uid,
             userName,
             email,
             description
         }
     ];
-    console.log(`TIKCETS: ${JSON.stringify(tickets)}`)
     return '200';
 };
 
@@ -22,11 +22,13 @@ exports.getTickets = () => {
     return tickets;
 };
 
-exports.updateTicket = (id) => {
-    const i = tickets.findIndex(x => x.id == item.id);
+exports.updateTicket = ({id, comment, status}) => {
+    const i = tickets.findIndex(x => x.id == id);
     const item = {...tickets[i]};
-    item.status = 'old';
-    tickets[index] = item;  
+    item.comment = comment;
+    item.status = status;
+    tickets[i] = item;
+    return '201';
 };
 
 //helpers

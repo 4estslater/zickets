@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../App.css';
 import { createTicket } from '../services/index';
 
 const UID = 'uid1234';
@@ -8,6 +9,12 @@ const Client = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [description, setDescription] = useState('')
+
+  const resetForm = () => {
+    setName('');
+    setEmail('');
+    setDescription('');
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,12 +30,13 @@ const Client = () => {
       .then((res) => res.json())
       .then((data) => {
         setMessage(data.message);
+        resetForm();
     });
   }
     
   return (
     <>
-      <form  onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <label>
           <input name="name" onChange={event => setName(event.target.value)} value={name} />
           <input name="email" onChange={event => setEmail(event.target.value)} value={email} />

@@ -8,14 +8,10 @@ const app = express();
 app.use(express.json()) ; 
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
-app.get('/api', (req, res) => {
-  res.json({ message: 'Hello from server!' });
-});
-
 app.get('/tickets', async (req, res) => {
   try {
-      const result = await db.getTickets();
-      res.send({ message: `Ticket Count: ${result.length}` });
+      const response = await db.getTickets();
+      res.json({ data: response });
   } catch (err) {
       console.error(err);
   }
@@ -30,8 +26,13 @@ app.post('/tickets', async (req, res) => {
   }
 });
 
-app.put('/tickets', (req, res) => {
-  res.json({ message: 'Update Ticket!' });
+app.put('/tickets', async (req, res) => {
+  try {
+    const response = await db.updateTicket(req.body);
+    res.json({ code: response, message: 'Ticket Updated'});
+  } catch (err) {
+      console.error(err);
+  }
 });
 
 app.get('*', (req, res) => {
