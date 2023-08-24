@@ -7,6 +7,7 @@ exports.createTicket = ({uid, userName, email, description}) => {
         ...tickets,
         {
             id: getUniqueId(),
+            updatedAt: Date.now(),
             status: 'new',
             comment: '',
             uid,
@@ -19,7 +20,9 @@ exports.createTicket = ({uid, userName, email, description}) => {
 };
 
 exports.getTickets = () => {
-    return tickets;
+    return tickets.sort((a,b) => {
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
+    });;
 };
 
 exports.updateTicket = ({id, comment, status}) => {
@@ -27,6 +30,7 @@ exports.updateTicket = ({id, comment, status}) => {
     const item = {...tickets[i]};
     item.comment = comment;
     item.status = status;
+    item.updatedAt = Date.now()
     tickets[i] = item;
     return '201';
 };

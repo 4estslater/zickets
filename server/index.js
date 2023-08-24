@@ -19,6 +19,7 @@ app.get('/tickets', async (req, res) => {
 
 app.post('/tickets', async (req, res) => {
   try {
+    console.log('Would normally send email here with body..');
     const response = await db.createTicket(req.body);
     res.json({ code: response, message: 'Ticket Created'});
   } catch (err) {
@@ -28,6 +29,7 @@ app.post('/tickets', async (req, res) => {
 
 app.put('/tickets', async (req, res) => {
   try {
+    console.log('Would normally send email here with body..');
     const response = await db.updateTicket(req.body);
     res.json({ code: response, message: 'Ticket Updated'});
   } catch (err) {
